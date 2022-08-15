@@ -1,0 +1,1 @@
+insert into purchase_transaction (id, user_id, amount, purchased_on) values (1, 'shiva', 120, CURRENT_TIMESTAMP());

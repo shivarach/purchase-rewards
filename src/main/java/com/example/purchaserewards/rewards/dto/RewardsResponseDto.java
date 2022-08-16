@@ -1,5 +1,6 @@
 package com.example.purchaserewards.rewards.dto;
 
+import com.example.purchaserewards.rewards.domain.Reward;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,10 @@ public class RewardsResponseDto {
     String customerId;
     int total;
     List<MonthlyRewardDto> monthlyRewards;
+
+    public static RewardsResponseDto createFrom(List<Reward> rewards) {
+        return null;
+    }
 }
 
 @Getter

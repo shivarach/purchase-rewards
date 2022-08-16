@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.example.purchaserewards.rewards.dto.RewardsResponseDto.createFrom;
+
 @Service
 public class RewardsService {
 
@@ -24,6 +26,6 @@ public class RewardsService {
     public RewardsResponseDto getRewards(String customerId) {
         List<Purchase> customerPurchases = purchaseTransactionRepository.findAllPurchasesByUserIdAndNumberOfMonths(customerId, numberOfMonths);
         List<Reward> rewards = customerPurchases.stream().map(RewardsCalculator::calculate).collect(Collectors.toList());
-        return RewardsResponseDto.createFrom(rewards);
+        return createFrom(rewards, customerId);
     }
 }

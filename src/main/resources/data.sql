@@ -1,2 +1,2 @@
-insert into purchase_transaction (id, user_id, amount, purchased_on) values (1, 'shiva', 120, CURRENT_TIMESTAMP());
+insert into purchase_transaction (id, user_id, amount, purchased_on) values (1, 'shiva', 120, {ts '2022-08-15 18:47:52.69'});
 insert into purchase_transaction (id, user_id, amount, purchased_on) values (2, 'shiva', 120, {ts '2022-04-17 18:47:52.69'});

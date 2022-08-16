@@ -1,5 +1,6 @@
 package com.example.purchaserewards.rewards.service;
 
+import com.example.purchaserewards.exception.CustomerNotFoundException;
 import com.example.purchaserewards.rewards.RewardsCalculator;
 import com.example.purchaserewards.rewards.dao.PurchaseTransactionRepository;
 import com.example.purchaserewards.rewards.domain.Purchase;
@@ -25,6 +26,9 @@ public class RewardsService {
 
     public RewardsResponseDto getRewards(String customerId) {
         List<Purchase> customerPurchases = purchaseTransactionRepository.findAllPurchasesByUserIdAndNumberOfMonths(customerId, numberOfMonths);
+        if (customerPurchases.isEmpty()) {
+            throw new CustomerNotFoundException(String.format("Customer %s not found", customerId));
+        }
         List<Reward> rewards = customerPurchases.stream().map(RewardsCalculator::calculate).collect(Collectors.toList());
         return createFrom(rewards, customerId);
     }

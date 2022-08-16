@@ -1,6 +1,7 @@
 package com.example.purchaserewards.rewards.dto;
 
 import com.example.purchaserewards.rewards.domain.Reward;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,8 +18,10 @@ import static java.util.stream.Collectors.groupingBy;
 @Setter
 @NoArgsConstructor
 public class RewardsResponseDto {
+    @JsonProperty("customer_id")
     private String customerId;
     private double total;
+    @JsonProperty("monthly_rewards")
     private List<MonthlyRewardDto> monthlyRewards;
 
     public static RewardsResponseDto createFrom(List<Reward> rewards, String customerId) {

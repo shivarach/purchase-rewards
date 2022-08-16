@@ -6,6 +6,7 @@ import com.example.purchaserewards.rewards.dao.PurchaseTransactionRepository;
 import com.example.purchaserewards.rewards.domain.Purchase;
 import com.example.purchaserewards.rewards.domain.Reward;
 import com.example.purchaserewards.rewards.dto.RewardsResponseDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import static com.example.purchaserewards.rewards.dto.RewardsResponseDto.createF
 import static java.util.Collections.emptyList;
 
 @Service
+@Slf4j
 public class RewardsService {
 
     @Value("${rewards.recent-no-of-months}")
@@ -33,6 +35,7 @@ public class RewardsService {
 
         List<Purchase> customerPurchases = purchaseTransactionRepository.findAllPurchasesByUserIdAndNumberOfMonths(customerId, numberOfMonths);
         if (customerPurchases.isEmpty()) {
+            log.info(String.format("No purchases found for the user %s in last %s months!", customerId, numberOfMonths));
             RewardsResponseDto rewardsResponseDto = new RewardsResponseDto();
             rewardsResponseDto.setCustomerId(customerId);
             rewardsResponseDto.setMonthlyRewards(emptyList());

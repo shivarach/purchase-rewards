@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.example.purchaserewards.rewards.dto.RewardsResponseDto.createFrom;
+import static java.util.Collections.emptyList;
 
 @Service
 public class RewardsService {
@@ -25,9 +26,17 @@ public class RewardsService {
     private PurchaseTransactionRepository purchaseTransactionRepository;
 
     public RewardsResponseDto getRewards(String customerId) {
+        boolean anyPurchasesExist = purchaseTransactionRepository.existsByUserId(customerId);
+        if (!anyPurchasesExist) {
+            throw new CustomerNotFoundException(String.format("Customer %s not found!", customerId));
+        }
+
         List<Purchase> customerPurchases = purchaseTransactionRepository.findAllPurchasesByUserIdAndNumberOfMonths(customerId, numberOfMonths);
         if (customerPurchases.isEmpty()) {
-            throw new CustomerNotFoundException(String.format("Customer %s not found", customerId));
+            RewardsResponseDto rewardsResponseDto = new RewardsResponseDto();
+            rewardsResponseDto.setCustomerId(customerId);
+            rewardsResponseDto.setMonthlyRewards(emptyList());
+            return rewardsResponseDto;
         }
         List<Reward> rewards = customerPurchases.stream().map(RewardsCalculator::calculate).collect(Collectors.toList());
         return createFrom(rewards, customerId);

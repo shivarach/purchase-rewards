@@ -24,6 +24,19 @@ public class RewardsResponseDto {
     @JsonProperty("monthly_rewards")
     private List<MonthlyRewardDto> monthlyRewards;
 
+    @Getter
+    static
+    public class MonthlyRewardDto {
+        private final Month month;
+        private final double total;
+
+        public MonthlyRewardDto(Month month, double total) {
+            this.total = total;
+            this.month = month;
+        }
+    }
+
+
     public static RewardsResponseDto createFrom(List<Reward> rewards, String customerId) {
         RewardsResponseDto rewardsResponseDto = new RewardsResponseDto();
         rewardsResponseDto.setCustomerId(customerId);
@@ -33,21 +46,10 @@ public class RewardsResponseDto {
                 .collect(groupingBy(reward -> reward.getPurchase().getPurchasedOn().toLocalDateTime().getMonth()));
 
         List<MonthlyRewardDto> monthlyRewardsDto = monthlyRewards.keySet().stream()
-                .map(month -> new MonthlyRewardDto(month, monthlyRewards.get(month).stream().mapToDouble(Reward::getValue).sum()))
+                .map(month -> new RewardsResponseDto.MonthlyRewardDto(month, monthlyRewards.get(month).stream().mapToDouble(Reward::getValue).sum()))
                 .sorted(Comparator.<MonthlyRewardDto, Month>comparing(MonthlyRewardDto::getMonth)).collect(Collectors.toList());
         rewardsResponseDto.setMonthlyRewards(monthlyRewardsDto);
         return rewardsResponseDto;
-    }
-}
-
-@Getter
-class MonthlyRewardDto {
-    private final Month month;
-    private final double total;
-
-    public MonthlyRewardDto(Month month, double total) {
-        this.total = total;
-        this.month = month;
     }
 }
 

@@ -2,6 +2,7 @@ package com.example.purchaserewards.rewards.dto;
 
 import com.example.purchaserewards.rewards.domain.Purchase;
 import com.example.purchaserewards.rewards.domain.Reward;
+import com.example.purchaserewards.rewards.dto.RewardsResponseDto.MonthlyRewardDto;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Timestamp;

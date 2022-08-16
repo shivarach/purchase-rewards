@@ -10,4 +10,6 @@ public interface PurchaseTransactionRepository extends JpaRepository<Purchase, I
 
     @Query(value = "SELECT * FROM purchase_transaction WHERE user_id=:userId and purchased_on > (NOW() - :numberOfMonths MONTH);", nativeQuery = true)
     List<Purchase> findAllPurchasesByUserIdAndNumberOfMonths(String userId, int numberOfMonths);
+
+    boolean existsByUserId(String customerId);
 }

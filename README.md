@@ -10,7 +10,7 @@ For building and running the application you need:
 * Gradle 7.5
 * Docker 2.5 (Optional)
 
-## Build and run with docker
+## Build and run with docker(from project root directory)
 
 `./gradlew bootBuildImage --imageName=shiva/purchase-rewards:1.0`
 

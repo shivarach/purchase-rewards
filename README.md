@@ -1,6 +1,6 @@
 # purchase-rewards
 
-Spring boot application to calculate rewards for customer purchases. It uses in memory h2 database
+Containerized spring boot application to calculate rewards for customer purchases. It uses in memory h2 database
 
 ## Requirements
 

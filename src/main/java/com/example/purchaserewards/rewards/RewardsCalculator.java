@@ -10,6 +10,11 @@ public class RewardsCalculator {
     private static final int REWARD_OVER_HUNDRED_DOLLAR = 2;
     private static final int HUNDRED_DOLLAR_LIMIT = 100;
 
+    /**
+     *
+     * @param customerPurchase Customer Purchase
+     * @return Reward for the given Purchase
+     */
     public static Reward calculate(Purchase customerPurchase) {
         Double amount = customerPurchase.getAmount();
         double rewardValue = 0.0;

@@ -104,7 +104,7 @@ curl 'http://localhost:8080/rewards/tom@test.com'
 }
 ```
 
-* Test scenario 3 - Rewards for customer who doesn't exist
+* Test scenario 4 - Rewards for customer who doesn't exist
 
 ```shell
 curl 'http://localhost:8080/rewards/ram@test.com'
@@ -118,6 +118,6 @@ curl 'http://localhost:8080/rewards/ram@test.com'
 }
 ```
 
-## The following assumptions have been while developing solution
+## The following assumptions have been made while developing solution
 * Ideally all the customers should be in user table but users are considered directly from the _purchase_transaction_ table
 * No timezone is considered while recording the purchase transaction

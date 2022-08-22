@@ -27,6 +27,11 @@ public class RewardsService {
     @Autowired
     private PurchaseTransactionRepository purchaseTransactionRepository;
 
+    /**
+     *
+     * @param customerId The id of the customer
+     * @return Returns Rewards for given customer for last numberOfMonths (eg: 3)
+     */
     public RewardsResponseDto getRewards(String customerId) {
         boolean anyPurchasesExist = purchaseTransactionRepository.existsByUserId(customerId);
         if (!anyPurchasesExist) {

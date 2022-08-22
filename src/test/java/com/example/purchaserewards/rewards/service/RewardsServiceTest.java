@@ -22,6 +22,7 @@ import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
 class RewardsServiceTest {
@@ -53,6 +54,9 @@ class RewardsServiceTest {
         assertEquals(1, monthlyRewards.size());
         assertEquals(AUGUST, monthlyRewards.get(0).getMonth());
         assertEquals(90, monthlyRewards.get(0).getTotal());
+
+        verify(purchaseTransactionRepository).existsByUserId(customerId);
+        verify(purchaseTransactionRepository).findAllPurchasesByUserIdAndNumberOfMonths(any(String.class), any(Integer.class));
     }
 
     @Test
@@ -70,6 +74,9 @@ class RewardsServiceTest {
         assertEquals(0.0, rewards.getTotal());
         List<MonthlyRewardDto> monthlyRewards = rewards.getMonthlyRewards();
         assertEquals(0, monthlyRewards.size());
+
+        verify(purchaseTransactionRepository).existsByUserId(customerId);
+        verify(purchaseTransactionRepository).findAllPurchasesByUserIdAndNumberOfMonths(any(String.class), any(Integer.class));
     }
 
     @Test
@@ -78,5 +85,7 @@ class RewardsServiceTest {
         Mockito.when(purchaseTransactionRepository.existsByUserId(customerId)).thenReturn(false);
 
         assertThrows(CustomerNotFoundException.class, () -> rewardsService.getRewards(customerId), "Customer smith@test.com not found!");
+
+        verify(purchaseTransactionRepository).existsByUserId(customerId);
     }
 }

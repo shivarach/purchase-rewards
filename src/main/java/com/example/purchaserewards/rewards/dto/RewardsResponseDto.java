@@ -37,6 +37,12 @@ public class RewardsResponseDto {
     }
 
 
+    /**
+     *
+     * @param rewards rewards of the customer
+     * @param customerId customer id
+     * @return Builds required rewards response
+     */
     public static RewardsResponseDto createFrom(List<Reward> rewards, String customerId) {
         RewardsResponseDto rewardsResponseDto = new RewardsResponseDto();
         rewardsResponseDto.setCustomerId(customerId);

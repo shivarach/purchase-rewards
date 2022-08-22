@@ -15,6 +15,11 @@ public class RewardsController {
     @Autowired
     private RewardsService rewardsService;
 
+    /**
+     *
+     * @param customerId id of the customer Eg: shiva@test.com
+     * @return Total credits and monthly of given customer
+     */
     @GetMapping("{customerId}")
     public RewardsResponseDto getRewards(@PathVariable String customerId) {
         return rewardsService.getRewards(customerId);
